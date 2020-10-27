@@ -19,13 +19,13 @@ public class Bsp2 implements Callable<Integer>{
     {
     
        int perg = 0;
-       for(int i = von;i<bis;i++)
+       for(int i = von;i<=bis;i++)
        {
        
            perg += i;
        
        }
-       erg = erg;
+       erg = perg;
     
     }
 
