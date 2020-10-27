@@ -105,6 +105,22 @@ public class Main {
                             System.out.println(presults.get(i));
 
                         }
+                        System.out.print("Gesamtsumme: ");
+                        int sum = 0;
+                        for(int i = 0;i<results.size();i++)
+                        {
+                              sum =+ results.get(i);
+                              System.out.print(" "+results.get(i));
+                              if(i != results.size()-1)
+                              {
+                              
+                                  System.out.print(" +");
+                              
+                              }
+                        
+                        
+                        }
+                        System.out.print(" = "+sum+"\n");
 
                     } else {
 
