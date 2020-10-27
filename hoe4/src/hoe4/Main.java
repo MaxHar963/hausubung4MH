@@ -6,8 +6,11 @@
 package hoe4;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -19,7 +22,7 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
         Bsp1 b = new Bsp1();
         
         Scanner in = new Scanner(System.in);
@@ -30,11 +33,12 @@ public class Main {
             System.out.println("3.. Bsp3");
 
             int heingabe = Integer.parseInt(in.nextLine());
-            int eingabe1;
-            int eingabe2;
+            int eingabe1 = 0;
+            int eingabe2 = 0;
 
             switch (heingabe) {
-
+                
+                    
                 case 1:
                     System.out.println("Teiler?");
                     eingabe1 = Integer.parseInt(in.nextLine());
@@ -56,7 +60,49 @@ public class Main {
                     
                     break;
                 case 2:
-
+                    System.out.println("n?");
+                    if(eingabe1 > 100)
+                    {
+                    
+                      eingabe1 = Integer.parseInt(in.nextLine());
+                      executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+                      
+                      ArrayList<Integer> results = new ArrayList<>();
+                      ArrayList<String> presults = new ArrayList<>();
+                      int counter = 0;
+                      
+                      
+                        for(int i = 0;i<eingabe1;i++)
+                        {
+                        
+                            if(counter == 100)
+                            {
+                                Bsp2 task = new Bsp2();
+                                task.berechneTeil(i-100, i);
+                                Future<Integer> result = executor.submit(task);
+                                results.add(result.get());
+                                presults.add("");
+                                counter = 0;
+                            
+                            }
+                        
+                        
+                        
+                        }
+                    
+                    
+                    }
+                    else
+                    {
+                    
+                         System.out.println("! i -> (>100)");
+                    
+                    
+                    }
+                    
+                    
+                    
+                    
                     break;
                 case 3:
 
