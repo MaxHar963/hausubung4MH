@@ -61,10 +61,11 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("n?");
+                    eingabe1 = Integer.parseInt(in.nextLine());
                     if(eingabe1 > 100)
                     {
                     
-                      eingabe1 = Integer.parseInt(in.nextLine());
+                     
                       executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
                       
                       ArrayList<Integer> results = new ArrayList<>();
@@ -72,7 +73,7 @@ public class Main {
                       int counter = 0;
                       
                       
-                        for(int i = 0;i<eingabe1;i++)
+                        for(int i = 0;i<=eingabe1;i++)
                         {
                         
                             if(counter == 100)
@@ -81,10 +82,21 @@ public class Main {
                                 task.berechneTeil(i-100, i);
                                 Future<Integer> result = executor.submit(task);
                                 results.add(result.get());
-                                presults.add("");
+                                presults.add("Summe der Zahlen "+(i-100)+ "-" +i+": "+result.get());
                                 counter = 0;
                             
                             }
+                            
+                            counter++;
+                        
+                        
+                        
+                        }
+                        
+                        for(int i = 0;i<results.size();i++)
+                        {
+                        
+                                System.out.println(presults.get(i));
                         
                         
                         
@@ -110,10 +122,7 @@ public class Main {
 
             }
 
-            System.out.println("Teiler?");
-            eingabe1 = Integer.parseInt(in.nextLine());
-            System.out.println("Wieviele Teile?");
-            eingabe2 = Integer.parseInt(in.nextLine());
+           
 
         } while (true);
     }
