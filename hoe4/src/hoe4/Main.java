@@ -70,7 +70,8 @@ public class Main {
 
                             if (counter == 100) {
                                 Bsp2 task = new Bsp2();
-                                task.berechneTeil(i - 99, i);
+                                task.von = i - 99;
+                                task.bis = i;
                                 Future<Integer> result = executor.submit(task);
                                 results.add(result.get());
                                 presults.add("Summe der Zahlen " + (i - 100) + "-" + i + ": " + result.get());
@@ -88,7 +89,8 @@ public class Main {
                          
 
                                 Bsp2 task = new Bsp2();
-                                task.berechneTeil(eingabe1-y, eingabe1);
+                                task.von = eingabe1-y;
+                                task.bis = eingabe1;
                                 Future<Integer> result = executor.submit(task);
                                 results.add(result.get());
                                 presults.add("Summe der Zahlen " + (eingabe1-y) + "-" + eingabe1 + ": " + result.get());

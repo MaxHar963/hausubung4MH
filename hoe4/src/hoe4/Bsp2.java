@@ -14,23 +14,19 @@ import java.util.concurrent.Callable;
 public class Bsp2 implements Callable<Integer>{
     
     int erg = 0; 
-   
-    public void berechneTeil(int von,int bis)
-    {
+    int von = 0;
+    int bis = 0;
     
-       int perg = 0;
+
+    @Override
+    public Integer call(){
+        int perg = 0;
        for(int i = von;i<=bis;i++)
        {
        
            perg += i;
        
        }
-       erg = perg;
-    
-    }
-
-    @Override
-    public Integer call(){
-        return erg;
+       return perg;
     }
 }
