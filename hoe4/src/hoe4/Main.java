@@ -5,8 +5,13 @@
  */
 package hoe4;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -23,8 +28,10 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
-        Bsp1 b = new Bsp1();
-
+       
+        Bsp3 b3 = new Bsp3();
+        ArrayList<Integer> list = new ArrayList<>(); 
+        Main m = new Main();
         Scanner in = new Scanner(System.in);
 
         do {
@@ -45,11 +52,12 @@ public class Main {
                     eingabe2 = Integer.parseInt(in.nextLine());
 
                     ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(eingabe2);
-
+                    list.clear();
+                    list = m.readFile("numbers.csv");
                     for (int i = 0; i < eingabe2; i++) {
 
-                        Bsp1 task = new Bsp1();
-                        task.readFile("numbers.csv");
+                        Bsp1 task = new Bsp1(list);
+                        
                         task.cutArray(eingabe2, i, eingabe1);
                         executor.execute(task);
                     }
@@ -83,22 +91,15 @@ public class Main {
 
                         }
                         if (eingabe1 % 100 != 0) {
-                            
-                          int y =  eingabe1 % 100;
 
-                         
+                            int y = eingabe1 % 100;
 
-                                Bsp2 task = new Bsp2();
-                                task.von = eingabe1-y;
-                                task.bis = eingabe1;
-                                Future<Integer> result = executor.submit(task);
-                                results.add(result.get());
-                                presults.add("Summe der Zahlen " + (eingabe1-y) + "-" + eingabe1 + ": " + result.get());
-                                
-
-                               
-
-                            
+                            Bsp2 task = new Bsp2();
+                            task.von = eingabe1 - y;
+                            task.bis = eingabe1;
+                            Future<Integer> result = executor.submit(task);
+                            results.add(result.get());
+                            presults.add("Summe der Zahlen " + (eingabe1 - y) + "-" + eingabe1 + ": " + result.get());
 
                         }
 
@@ -109,20 +110,17 @@ public class Main {
                         }
                         System.out.print("Gesamtsumme: ");
                         int sum = 0;
-                        for(int i = 0;i<results.size();i++)
-                        {
-                              sum =+ results.get(i);
-                              System.out.print(" "+results.get(i));
-                              if(i != results.size()-1)
-                              {
-                              
-                                  System.out.print(" +");
-                              
-                              }
-                        
-                        
+                        for (int i = 0; i < results.size(); i++) {
+                            sum = +results.get(i);
+                            System.out.print(" " + results.get(i));
+                            if (i != results.size() - 1) {
+
+                                System.out.print(" +");
+
+                            }
+
                         }
-                        System.out.print(" = "+sum+"\n");
+                        System.out.print(" = " + sum + "\n");
 
                     } else {
 
@@ -133,11 +131,56 @@ public class Main {
                     break;
                 case 3:
 
+                   b3.run();
+
                     break;
 
             }
 
         } while (true);
     }
+    
+    public ArrayList<Integer> readFile(String filename) throws FileNotFoundException, IOException {
+         ArrayList<Integer> list = new ArrayList<>();
+        String line = "";
+        BufferedReader br = new BufferedReader(new FileReader(new File(filename)));
+        while ((line = br.readLine()) != null) {
+
+            String[] arr = line.split(":");
+            for (int i = 0; i < arr.length; i++) {
+
+                if (checkIfnull(arr[i])) {
+
+                        try {
+                        list.add(Integer.parseInt(arr[i]));
+                    } catch (Exception e) {
+                        
+                        
+                    }
+                        
+
+                    
+
+                }
+
+            }
+
+        }
+        
+        return list;
+
+    }
+      public boolean checkIfnull(String x) {
+
+        if (x == null || x == "") {
+
+            return false;
+
+        }
+
+
+        return true;
+    }
+
 
 }

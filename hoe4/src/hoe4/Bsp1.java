@@ -18,49 +18,17 @@ import java.util.ArrayList;
  */
 public class Bsp1 implements Runnable{
 
-    ArrayList<Integer> list = new ArrayList<>();
+    ArrayList<Integer> list;
     ArrayList<Integer> cutList = new ArrayList<>();
     int teiler = 0;
-    public void readFile(String filename) throws FileNotFoundException, IOException {
-        String line = "";
-        BufferedReader br = new BufferedReader(new FileReader(new File(filename)));
-        while ((line = br.readLine()) != null) {
 
-            String[] arr = line.split(":");
-            for (int i = 0; i < arr.length; i++) {
-
-                if (checkIfnull(arr[i])) {
-
-                        try {
-                        list.add(Integer.parseInt(arr[i]));
-                    } catch (Exception e) {
-                        
-                        
-                    }
-                        
-
-                    
-
-                }
-
-            }
-
-        }
-
+    public Bsp1(ArrayList<Integer> list) {
+        this.list = list;
     }
 
-    public boolean checkIfnull(String x) {
+    
 
-        if (x == null || x == "") {
-
-            return false;
-
-        }
-
-
-        return true;
-    }
-
+  
     public void printList() {
 
         list.forEach(System.out::println);
